@@ -1,0 +1,72 @@
+
+ERD 1
+
+ supporters {
+        INTEGER supporter_id PK
+        VARCHAR supporter_name 
+        VARCHAR email_id
+        VARCHAR location 
+        VARCHAR phone_no
+
+     }
+     fundraising_goals{
+        INTEGER campaign_id PK
+        VARCHAR campaign_name
+        INTEGER number_of_meals
+        INTEGER payment_id FK
+        INTEGER target_id
+        INTEGER donation_id FK
+ 
+     }
+
+     payment_info{
+        INTEGER payment_id PK
+        INTEGER supporter_id FK
+        INTEGER campaign_id FK
+        VARCHAR donation_type
+        DECIMAL donation_amount
+        INTEGER currency_id FK
+        
+
+     }
+     updates{
+        INTEGER update_id PK
+        INTEGER campaign_id FK
+        DATE update_date
+        CLOB update_content
+     }
+
+     
+
+      currency{
+        INTEGER currency_id PK
+        VARCHAR currency_name
+        VARCHAR symbol
+        DECIMAL exchange_rate
+        VARCHAR country_name 
+    
+      }
+
+      our_team{
+       INTEGER employee_id PK
+       VARCHAR employee_name
+       INTEGER campaign_id FK
+       VARCHAR deparment
+       VARCHAR position
+
+      }
+
+      images{
+        INTEGER image_id PK
+        INTEGER campaign_id FK
+        BLOB image
+
+      }
+supporters ||--o{ payment_info : "makes"
+fundraising_goals ||--o{ payment_info : "receives"
+fundraising_goals ||--o{ updates : "has"
+fundraising_goals ||--o{ our_team : "has"
+fundraising_goals ||--o{ images : "has"
+currency ||--o{ payment_info : "used in"
+
+

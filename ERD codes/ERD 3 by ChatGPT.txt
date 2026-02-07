@@ -1,0 +1,71 @@
+erDiagram by Chatgpt
+
+Prompt given to chatGpt: 
+1. https://sharethemeal.org/campaigns
+   what can you tell me about the above link, what is mentioned in it and which year it was published.
+2. is it possilbe for you to provide me a complete ERD diagram for my reference of the complete website.
+   Dont create a detailed one, only the ones which are quite evident while going through the website
+3. Can You add paymentinfo and updates
+4. can you give me a complete code for it so i can make relations and connections for the ERD
+
+
+
+    Users {
+        INTEGER user_id PK 
+        VARCHAR name 
+        VARCHAR location 
+        DECIMAL total_donations
+        DATE date_joined
+    }
+
+    Campaigns {
+        INTEGER CampaignID PK
+        VARCHAR campaign_name
+        TEXT Description
+        DECIMAL TargetAmount
+        DECIMAL AmountRaised 
+        DATE StartDate 
+        DATE EndDate 
+        VARCHAR Country
+    }
+
+    Donations {
+        INTEGER DonationID PK
+        INTEGER UserID FK                          
+        INTEGER CampaignID FK                        
+        DECIMAL  DonationAmount   
+        DATE  DonationDate              
+    }
+
+    MealsProvided {
+        INTEGER MealID PK
+        INTEGER CampaignID FK                 
+        INTEGER NumberOfMeals             
+        VARCHAR Region                
+        DATE DateDistributed               
+    }
+
+    Updates {
+        INTEGER UpdateID  PK
+        INTEGER CampaignID FK                    
+        TEXT  UpdateContent                   
+        DATE UpdateDate                        
+    }
+
+    PaymentInfo {
+        INTEGER PaymentID  PK
+        INTEGER UserID  FK
+        INTEGER DonationID  FK                       
+        VARCHAR PaymentMethod 
+        DATE PaymentDate                
+    }
+
+    Users ||--o{ Donations : "makes"
+    Campaigns ||--o{ Donations : "receives"
+    Campaigns ||--o{ MealsProvided : "funds"
+    Campaigns ||--o{ Updates : "posts"
+    Users ||--o{ PaymentInfo : "makes"
+    Donations ||--|| PaymentInfo : "has"
+
+
+

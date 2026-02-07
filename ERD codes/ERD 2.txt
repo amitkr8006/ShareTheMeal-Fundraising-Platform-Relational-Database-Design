@@ -1,0 +1,82 @@
+
+2nd erDiagram 
+
+    USER {
+        INTEGER User_Id PK
+        VARCHAR Name
+        VARCHAR Email
+        VARCHAR Location
+        VARCHAR Payment_Details
+        FLOAT Total_Donations
+        DATE Registration_Date
+    }
+    
+    DONATION {
+        INTEGER Donation_Id PK
+        INTEGER User_Id FK
+        INTEGER Campaign_Id FK
+        FLOAT Amount
+        INTEGER Meal_Count
+        STRING Payment_Method 
+        STRING Transaction_Status
+        DATE Transaction_Date
+        BOOLEAN Subscription
+
+
+
+    }
+    
+    CAMPAIGN {
+        INTEGER Campaign_Id PK
+        VARCHAR Campaign_Name
+        VARCHAR Description
+        VARCHAR Country
+        DATE Start_Date
+        DATE End_Date
+        FLOAT Meal_Goal
+        FLOAT Meals_Donated
+        INTEGER supporter_Count
+        VARCHAR Status
+        
+    }
+    
+    CHALLENGE {
+        INTEGER Challenge_Id PK
+        INTEGER User_Id FK
+        INTEGER Campaign_Id FK
+        STRING Challenge_Name
+        INTEGER Meal_Goal
+        DATE Start_Date
+        DATE End_Date
+        VARCHAR Status
+    }
+
+    TEAM {
+        INTEGER Employee_Id PK
+        INTEGER Campaign_Id FK
+        VARCHAR Employee_Name 
+        VARCHAR Designation
+        VARCHAR Department
+        VARCHAR Nationality
+        
+
+
+    }
+    UPDATES {
+        INTEGER Update_Id PK
+        INTEGER Campaign_Id FK
+        DATE Start_Date 
+        BOOLEAN Status
+        STRING Update_String
+
+    }
+    
+    USER ||--o{ DONATION : "makes"
+    CAMPAIGN ||--o{ DONATION : "is for"
+    USER ||--o{ CHALLENGE : "participates in"
+    CHALLENGE ||--o{ CAMPAIGN : "supports"
+    TEAM ||--o{ CAMPAIGN : "works on"
+    CAMPAIGN ||--o{UPDATES : "constitutes"
+
+
+```
